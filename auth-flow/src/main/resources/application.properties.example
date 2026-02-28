@@ -1,0 +1,85 @@
+# Application Configuration Example
+# Copy this file to application.properties and configure with your values
+
+# Application Name
+spring.application.name=auth-flow
+
+# Database Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/authflow
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA/Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Email Configuration
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=your-email@gmail.com
+spring.mail.password=your-app-password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.test.connection=false
+spring.mail.mock.enabled=false
+
+# OAuth2 Google Configuration
+spring.security.oauth2.client.registration.google.client-id=your-google-client-id
+spring.security.oauth2.client.registration.google.client-secret=your-google-client-secret
+spring.security.oauth2.client.registration.google.scope=profile,email
+spring.security.oauth2.client.registration.google.redirect-uri={baseUrl}/login/oauth2/code/{registrationId}
+
+# Thymeleaf Configuration
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=HTML
+spring.thymeleaf.cache=false
+
+# Redis Configuration (optional - for distributed rate limiting)
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+spring.redis.database=0
+spring.redis.timeout=2000ms
+spring.redis.lettuce.pool.max-active=8
+spring.redis.lettuce.pool.max-idle=8
+spring.redis.lettuce.pool.min-idle=0
+spring.redis.lettuce.pool.max-wait=-1ms
+
+# Async Configuration
+spring.task.execution.pool.core-size=5
+spring.task.execution.pool.max-size=10
+spring.task.execution.pool.queue-capacity=100
+
+# Server Configuration
+server.forward-headers-strategy=native
+server.port=8080
+
+# Swagger/OpenAPI Configuration
+springdoc.api-docs.path=/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operations-sorter=method
+
+# JWT Configuration
+jwt.secret=your-base64-encoded-secret-key-here-must-be-at-least-256-bits
+jwt.access-token-expiration=900000
+jwt.refresh-token-expiration=2592000000
+
+# Application Configuration
+app.email.from=your-email@gmail.com
+app.email.from-name=Auth Flow
+app.email.support=support@authflow.com
+app.frontend.url=http://localhost:3000
+app.token.password-reset-expiration=3600000
+app.token.email-verification-expiration=86400000
+
+# Rate Limiting Configuration
+app.rate-limit.enabled=true
+app.rate-limit.storage-type=MEMORY
+
+# Logging Configuration
+logging.level.com.authflow=INFO
+logging.level.org.springframework.security=WARN
+logging.level.org.hibernate.SQL=WARN
