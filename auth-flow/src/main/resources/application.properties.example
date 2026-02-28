@@ -63,6 +63,7 @@ springdoc.swagger-ui.path=/swagger-ui.html
 springdoc.swagger-ui.operations-sorter=method
 
 # JWT Configuration
+# (Command) openssl rand -base64 32
 jwt.secret=your-base64-encoded-secret-key-here-must-be-at-least-256-bits
 jwt.access-token-expiration=900000
 jwt.refresh-token-expiration=2592000000
