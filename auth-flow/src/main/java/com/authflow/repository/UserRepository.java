@@ -1,7 +1,6 @@
 package com.authflow.repository;
 
 import com.authflow.model.User;
-import com.authflow.model.enums.AuthProvider;
 import com.authflow.model.enums.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByEmail(String email);
 
 	Boolean existsByEmail(String email);
-
-	Optional<User> findByProviderAndProviderId(AuthProvider provider, String providerId);
 
 	@Query("SELECT u FROM User u JOIN u.roles r WHERE r = :role " +
 			"AND (:search IS NULL OR LOWER(u.name) LIKE LOWER(CONCAT('%', :search, '%')) " +

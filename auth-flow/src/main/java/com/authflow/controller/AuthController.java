@@ -19,7 +19,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/auth")
@@ -59,19 +58,6 @@ public class AuthController {
 	public ResponseEntity<UserResponse> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
 		UserResponse response = authService.getCurrentUser(userDetails.getUsername());
 		return ResponseEntity.ok(response);
-	}
-
-	@GetMapping("/oauth2/google")
-	@Operation(
-		summary = "Login with Google",
-		description = "Redirects to Google OAuth2 login page. After successful authentication, user will be redirected back with tokens."
-	)
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "302", description = "Redirect to Google login"),
-		@ApiResponse(responseCode = "500", description = "OAuth2 configuration error")
-	})
-	public RedirectView loginWithGoogle() {
-		return new RedirectView("/oauth2/authorization/google");
 	}
 
 	@PostMapping("/register")
@@ -130,7 +116,7 @@ public class AuthController {
 	)
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "If email is registered and not verified, new verification link sent"),
-		@ApiResponse(responseCode = "400", description = "Invalid request or OAuth2 account"),
+		@ApiResponse(responseCode = "400", description = "Invalid request"),
 		@ApiResponse(responseCode = "429", description = "Too many requests - rate limit exceeded")
 	})
 	public ResponseEntity<MessageResponse> resendVerificationEmail(@Valid @RequestBody ResendVerificationRequest request) {
@@ -146,7 +132,7 @@ public class AuthController {
 	)
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "If email exists, reset link sent"),
-		@ApiResponse(responseCode = "400", description = "Invalid request or OAuth2 account"),
+		@ApiResponse(responseCode = "400", description = "Invalid request"),
 		@ApiResponse(responseCode = "429", description = "Too many requests - rate limit exceeded")
 	})
 	public ResponseEntity<MessageResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {

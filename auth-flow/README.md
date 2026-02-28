@@ -7,7 +7,6 @@ Core de autenticação extraído do projeto InstrutorBrasil, contendo apenas as 
 - Registro de usuários com email e senha
 - Verificação de email
 - Login com email e senha
-- Login com Google OAuth2
 - Recuperação de senha
 - Refresh tokens
 - Rate limiting
@@ -20,7 +19,6 @@ Core de autenticação extraído do projeto InstrutorBrasil, contendo apenas as 
 - PostgreSQL
 - JWT (jjwt 0.12.6)
 - Spring Security
-- Spring OAuth2 Client
 - Thymeleaf (templates de email)
 - Swagger/OpenAPI
 
@@ -47,7 +45,6 @@ Edite o arquivo `application.properties` e configure:
 - Credenciais do banco de dados (se diferentes do padrão)
 - Configurações de email (SMTP)
 - Chave secreta JWT (gere uma chave base64 de pelo menos 256 bits)
-- Client ID e Secret do Google OAuth2
 - URL do frontend
 
 ### 3. Executar aplicação
@@ -67,7 +64,6 @@ Acesse a documentação Swagger em: `http://localhost:8080/swagger-ui.html`
 ### Autenticação
 - `POST /auth/register` - Registrar novo usuário
 - `POST /auth/login` - Login com email/senha
-- `GET /auth/oauth2/google` - Login com Google
 - `POST /auth/verify-email` - Verificar email
 - `POST /auth/resend-verification` - Reenviar email de verificação
 - `POST /auth/recover/request` - Solicitar recuperação de senha
@@ -85,7 +81,6 @@ Acesse a documentação Swagger em: `http://localhost:8080/swagger-ui.html`
 - Tokens JWT com expiração configurável
 - Rate limiting para prevenir ataques
 - CORS configurado
-- OAuth2 para login social
 
 ## Rate Limiting
 
@@ -119,7 +114,7 @@ auth-flow/
 │   ├── interceptor/         # Interceptors
 │   ├── model/               # Entidades JPA
 │   ├── repository/          # Repositories JPA
-│   ├── security/            # Configurações de segurança (JWT, OAuth2)
+│   ├── security/            # Configurações de segurança (JWT)
 │   └── service/             # Lógica de negócio
 └── src/main/resources/
     ├── templates/           # Templates de email (Thymeleaf)

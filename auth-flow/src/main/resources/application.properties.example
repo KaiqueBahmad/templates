@@ -5,7 +5,7 @@
 spring.application.name=auth-flow
 
 # Database Configuration
-spring.datasource.url=jdbc:postgresql://localhost:5432/authflow
+spring.datasource.url=jdbc:postgresql://localhost:5435/authflow
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 spring.datasource.driver-class-name=org.postgresql.Driver
@@ -25,12 +25,6 @@ spring.mail.properties.mail.smtp.starttls.required=true
 spring.mail.test.connection=false
 spring.mail.mock.enabled=false
 
-# OAuth2 Google Configuration
-spring.security.oauth2.client.registration.google.client-id=your-google-client-id
-spring.security.oauth2.client.registration.google.client-secret=your-google-client-secret
-spring.security.oauth2.client.registration.google.scope=profile,email
-spring.security.oauth2.client.registration.google.redirect-uri={baseUrl}/login/oauth2/code/{registrationId}
-
 # Thymeleaf Configuration
 spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.suffix=.html
@@ -38,15 +32,15 @@ spring.thymeleaf.mode=HTML
 spring.thymeleaf.cache=false
 
 # Redis Configuration (optional - for distributed rate limiting)
-spring.redis.host=localhost
-spring.redis.port=6379
-spring.redis.password=
-spring.redis.database=0
-spring.redis.timeout=2000ms
-spring.redis.lettuce.pool.max-active=8
-spring.redis.lettuce.pool.max-idle=8
-spring.redis.lettuce.pool.min-idle=0
-spring.redis.lettuce.pool.max-wait=-1ms
+#spring.redis.host=localhost
+#spring.redis.port=6379
+#spring.redis.password=
+#spring.redis.database=0
+#spring.redis.timeout=2000ms
+#spring.redis.lettuce.pool.max-active=8
+#spring.redis.lettuce.pool.max-idle=8
+#spring.redis.lettuce.pool.min-idle=0
+#spring.redis.lettuce.pool.max-wait=-1ms
 
 # Async Configuration
 spring.task.execution.pool.core-size=5

@@ -6,7 +6,6 @@ import com.authflow.dto.response.MessageResponse;
 import com.authflow.dto.response.UserResponse;
 import com.authflow.exception.EmailNotVerifiedException;
 import com.authflow.exception.InvalidCredentialsException;
-import com.authflow.exception.InvalidProviderException;
 import com.authflow.exception.TokenNotFoundException;
 import com.authflow.exception.UserAlreadyExistsException;
 import com.authflow.model.*;
@@ -189,14 +188,6 @@ public class AuthService {
 		User user = userService.findByEmailOptional(request.getEmail()).orElse(null);
 
 		if (user != null) {
-			// Verificar se é conta LOCAL
-			if (user.getProvider() != AuthProvider.LOCAL) {
-				throw new InvalidProviderException(
-						"A redefinição de senha está disponível apenas para contas criadas com e-mail/senha. " +
-								"Por favor, use " + user.getProvider() + " para entrar."
-				);
-			}
-
 			// Criar token e enviar email
 			PasswordResetToken resetToken =
 					passwordResetTokenService.createPasswordResetToken(user);
@@ -220,13 +211,7 @@ public class AuthService {
 		// Verificar validade
 		passwordResetTokenService.verifyToken(resetToken);
 
-		// Verificar se é conta LOCAL (extra safety check)
 		User user = resetToken.getUser();
-		if (user.getProvider() != AuthProvider.LOCAL) {
-			throw new InvalidProviderException(
-					"A redefinição de senha está disponível apenas para contas locais"
-			);
-		}
 
 		// Atualizar senha
 		user.setPassword(passwordEncoder.encode(request.getNewPassword()));
@@ -250,14 +235,6 @@ public class AuthService {
 		User user = userService.findByEmailOptional(request.getEmail()).orElse(null);
 
 		if (user != null) {
-			// Verificar se é conta LOCAL
-			if (user.getProvider() != AuthProvider.LOCAL) {
-				throw new InvalidProviderException(
-						"A verificação de e-mail está disponível apenas para contas criadas com e-mail/senha. " +
-								"Contas criadas com " + user.getProvider() + " são verificadas automaticamente."
-				);
-			}
-
 			// Verificar se o email já foi verificado
 			if (user.getEmailVerified()) {
 				return new MessageResponse("E-mail já foi verificado. Você já pode fazer login.");

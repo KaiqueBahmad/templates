@@ -1,7 +1,6 @@
 package com.authflow.config;
 
 import com.authflow.security.jwt.JwtAuthenticationFilter;
-import com.authflow.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +40,6 @@ public class SecurityConfig {
 
 	private final JwtAuthenticationFilter jwtAuthFilter;
 	private final UserDetailsService userDetailsService;
-	private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,8 +49,6 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(
 								"/auth/**",
-								"/oauth2/**",
-								"/login/oauth2/**",
 								"/public/**",
 								"/swagger-ui.html",
 								"/swagger-ui/**",
@@ -72,10 +68,7 @@ public class SecurityConfig {
 							response.getWriter().write("{\"error\":\"Forbidden\",\"message\":\"You don't have permission to access this resource\"}");
 						})
 				)
-				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-				.oauth2Login(oauth2 -> oauth2
-						.successHandler(oAuth2AuthenticationSuccessHandler)
-				);
+				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}

@@ -166,20 +166,6 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
 	}
 
-	@ExceptionHandler(InvalidProviderException.class)
-	public ResponseEntity<ErrorResponse> handleInvalidProvider(
-			InvalidProviderException ex,
-			HttpServletRequest request) {
-		ErrorResponse error = new ErrorResponse(
-				HttpStatus.BAD_REQUEST.value(),
-				"Requisição inválida",
-				ex.getMessage(),
-				request.getRequestURI(),
-				ErrorCode.INVALID_PROVIDER
-		);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-	}
-
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<ErrorResponse> handleBadCredentials(
 			BadCredentialsException ex,

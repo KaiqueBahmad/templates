@@ -48,9 +48,6 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private AuthProvider provider;
 
-	@Column(name = "provider_id")
-	private String providerId;
-
 	@Column(name = "email_verified", nullable = false)
 	private Boolean emailVerified = false;
 
